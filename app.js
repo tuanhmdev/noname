@@ -13,15 +13,6 @@ var percentWidth = 0;
 var heartLeft = -3.2;
 var progressLoad = setInterval(progressInterva, 100);
 
-// Nhạc tự phát khi load trang
-var music = document.getElementById("bg-music");
-window.addEventListener('load', () => {
-    music.play().then(() => {
-        // Bật tiếng sau 1 giây
-        setTimeout(() => music.muted = false, 1000);
-    }).catch(err => console.warn("🚫 Trình duyệt chặn autoplay:", err));
-});
-
 // Khi click vào button -> nhạc vẫn phát nếu chưa chơi
 var buttonClick = document.querySelector(".buttonCLick");
 buttonClick.addEventListener("click", function () {
