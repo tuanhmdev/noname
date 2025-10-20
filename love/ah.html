@@ -122,6 +122,25 @@
                 <div class="before"></div>
             </div>
         </div>
+        <audio id="bg-music" src="../hihi.mp3" autoplay muted loop></audio>
+        <script>
+window.addEventListener('load', () => {
+    const music = document.getElementById('bg-music');
+
+    // Phát nhạc (nếu trình duyệt cho phép)
+    music.play().then(() => {
+        console.log("🎵 Nhạc bắt đầu phát (im lặng)...");
+        // Bật tiếng sau 1 giây
+        setTimeout(() => {
+            music.muted = false;
+            console.log("🔊 Nhạc đã bật tiếng");
+        }, 1000);
+    }).catch(err => {
+        console.warn("🚫 Trình duyệt chặn autoplay:", err);
+    });
+});
+</script>
+
     </body>
     <script type="text/javascript"
         src="https://code.jquery.com/jquery-3.6.3.min.js"></script>

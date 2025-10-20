@@ -13,12 +13,24 @@ var percentWidth = 0;
 var heartLeft = -3.2;
 var progressLoad = setInterval(progressInterva, 100);
 
-button.addEventListener("click", function () {
-  button.style.transform = "scale(0.8)";
-  setTimeout(() => {
-    button.style.transform = "scale(1)";
-    window.location.href = "./love/ah.html";
-  }, 200);
+// Nhạc tự phát khi load trang
+var music = document.getElementById("bg-music");
+window.addEventListener('load', () => {
+    music.play().then(() => {
+        // Bật tiếng sau 1 giây
+        setTimeout(() => music.muted = false, 1000);
+    }).catch(err => console.warn("🚫 Trình duyệt chặn autoplay:", err));
+});
+
+// Khi click vào button -> nhạc vẫn phát nếu chưa chơi
+var buttonClick = document.querySelector(".buttonCLick");
+buttonClick.addEventListener("click", function () {
+    music.play().catch(err => console.warn("🚫 Trình duyệt chặn autoplay:", err));
+    button.style.transform = "scale(0.8)";
+    setTimeout(() => {
+        button.style.transform = "scale(1)";
+        window.location.href = "./love/ah.html";
+    }, 200);
 });
 
 function progressInterva() {
@@ -28,40 +40,24 @@ function progressInterva() {
     percent.style.letterSpacing = "1px";
     textBox.style.transform = "scale(1.3)";
     heartItem3.style.animation = "1s heartScale forwards";
+    setTimeout(() => textBox.style.transform = "scale(0)"), 400;
+    setTimeout(() => textBox.style.opacity = "0"), 600;
+    setTimeout(() => button.style.transform = "scale(1)"), 800;
     setTimeout(() => {
-      textBox.style.transform = "scale(0)";
-    }, 400);
-    setTimeout(() => {
-      textBox.style.opacity = "0";
-    }, 600);
-    setTimeout(() => {
-      button.style.transform = "scale(1)";
-    }, 800);
-    setTimeout(() => {
-      button.style.background = "rgb(244,118,121)";
-      button.style.width = "130px";
-      button.style.borderRadius = "20px";
+        button.style.background = "rgb(244,118,121)";
+        button.style.width = "130px";
+        button.style.borderRadius = "20px";
     }, 1500);
+    setTimeout(() => button.style.height = "40px"), 2000;
     setTimeout(() => {
-      button.style.height = "40px";
-    }, 2000);
-    setTimeout(() => {
-      textBtn.textContent = "Click me!";
-      textBtn.style.color = "#fff";
+        textBtn.textContent = "Click me!";
+        textBtn.style.color = "#fff";
     }, 2500);
-    setTimeout(() => {
-      cursor.style.opacity = "1";
-    }, 3000);
+    setTimeout(() => cursor.style.opacity = "1"), 3000;
   } else {
-    if (count == 10) {
-      heartItem1.style.animation = "1s heartScale forwards";
-    }
-    if (count == 46) {
-      percent.style.color = "#fff";
-    }
-    if (count == 60) {
-      heartItem2.style.animation = "1s heartScale forwards";
-    }
+    if (count == 10) heartItem1.style.animation = "1s heartScale forwards";
+    if (count == 46) percent.style.color = "#fff";
+    if (count == 60) heartItem2.style.animation = "1s heartScale forwards";
     count += 1;
     percentWidth += 1;
     heartLeft += 0.968;
